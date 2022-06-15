@@ -2,3 +2,5 @@ package.json
 package-lock.json
 dist
 src/main.ts
+src/polyfills.ts
+src/test.ts
