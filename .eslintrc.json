@@ -32,12 +32,11 @@
   "plugins": ["simple-import-sort", "prettier"],
   "rules": {
     "prettier/prettier": ["error", {}, { "usePrettierrc": true }],
-    "@typescript-eslint/explicit-function-return-type": "off",
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
+    "no-unused-vars": "error",
     "@typescript-eslint/no-var-requires": "off",
-    "no-unused-vars": "off",
-    "indent": ["error", 2],
-    "linebreak-style": ["error", "unix"]
+    "linebreak-style": "off",
+    "@typescript-eslint/explicit-function-return-type": "off"
   }
 }
