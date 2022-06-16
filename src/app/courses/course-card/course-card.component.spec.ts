@@ -1,7 +1,6 @@
 /* tslint:disable:no-unused-variable */
+
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
 
 import { CourseCardComponent } from './course-card.component';
 
@@ -11,9 +10,8 @@ describe('CourseCardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CourseCardComponent ]
-    })
-    .compileComponents();
+      declarations: [CourseCardComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
