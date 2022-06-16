@@ -7,8 +7,9 @@
 
 <div class="courses">
   <course-card
-    *ngFor="let course of courses; index as i"
+    *ngFor="let course of courses; index as courseIndex"
     [course]="course"
-    [courseIndex]="i + 1"
+    [courseIndex]="courseIndex + 1"
+    (courseChanged)="saveCourse($event)"
   ></course-card>
 </div>

@@ -12,4 +12,8 @@ export class AppComponent {
   title = 'angular-core-deep';
 
   courses: Course[] = COURSES;
+
+  saveCourse(course: Course) {
+    console.log(course);
+  }
 }
