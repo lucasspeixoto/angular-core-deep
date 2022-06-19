@@ -1,9 +1,31 @@
-<ng-container *ngIf="course">
+<ng-container *ngIf="course" #container>
   <div class="course-card" [ngClass]="cardClasses()">
     <div class="course-title">
-      {{ courseIndex + ' ' + course.description }}
+      {{ course.description }}
     </div>
-    <img
+    <!-- Content Projection é uma possibilidade quando
+    queremos, por exemplo, exibir um conteúdo apenas
+  dentro de um item de uma lista -->
+
+    <ng-content select=".course-image" *ngIf="course.iconUrl; else noImage"></ng-content>
+
+    <ng-template #noImage>
+      <ng-container
+        *ngTemplateOutlet="
+          noImageTemplate;
+          context: { description: course.description, iconUrl: course.iconUrl }
+        "
+      ></ng-container>
+    </ng-template>
+
+    <ng-content select=".course-description"></ng-content>
+    <ng-content></ng-content>
+    <!-- Projeto tudo que não está com as classes course-image ou course-description -->
+    <!-- Podemos no content fazer uma query pela tag ou também
+    pela classe -->
+    <!--  -->
+    <!-- <img
+      #courseImage
       *ngIf="isImageVisible(); else noImage"
       width="300"
       alt="Angular Logo"
@@ -12,17 +34,13 @@
 
     <ng-template #noImage>
       <img width="300" alt="Empty Image" src="assets/empty-image.png" />
-    </ng-template>
-
-    <div class="course-description">
-      {{ course.longDescription }}
-    </div>
+    </ng-template> -->
 
     <ng-container [ngSwitch]="course.category">
       <div class="course-category">
         <ng-container *ngSwitchCase="course.category">
           <div class="category">
-            {{ titleCase(course.category) }}
+            {{ course.category | titlecase }}
           </div>
         </ng-container>
         <!--

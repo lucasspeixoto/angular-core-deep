@@ -1,24 +1,50 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  AfterContentInit,
+  AfterViewInit,
+  Component,
+  ContentChild,
+  ContentChildren,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  QueryList,
+  TemplateRef,
+} from '@angular/core';
 import { Course } from 'src/app/model/course';
+
+import { CourseImageComponent } from '../course-image/course-image.component';
 
 @Component({
   selector: 'course-card',
   templateUrl: './course-card.component.html',
   styleUrls: ['./course-card.component.css'],
 })
-export class CourseCardComponent implements OnInit {
+export class CourseCardComponent implements OnInit, AfterViewInit, AfterContentInit {
   @Input()
   course!: Course;
-
-  @Input()
-  courseIndex!: number;
 
   // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('courseChanged')
   courseEmitter = new EventEmitter<Course>();
 
+  @ContentChild('courseImage')
+  image!: ElementRef;
+
+  @ContentChild('container')
+  container!: ElementRef; // Não funciona, ContentChild é para queries dentro de um ng-content
+
+  @ContentChild(CourseImageComponent)
+  imageComponent!: CourseImageComponent;
+
+  @ContentChild(CourseImageComponent, { read: ElementRef })
+  imageRef!: ElementRef;
+
+  @ContentChildren(CourseImageComponent)
+  images!: QueryList<CourseImageComponent>;
   /*******************************
    * <div class="course-category" [ngSwitch]="course.category">
     <div class="category" *ngSwitchCase="'BEGINNER'">Beginner</div>
@@ -28,16 +54,22 @@ export class CourseCardComponent implements OnInit {
   </div>
    */
 
+  @Input()
+  noImageTemplate!: TemplateRef<any>;
+
   constructor() {}
 
   ngOnInit() {}
 
-  titleCase(str: string) {
-    const newString: string[] = str.toLowerCase().split(' ');
-    for (let i = 0; i < newString.length; i++) {
-      newString[i] = newString[i].charAt(0).toUpperCase() + newString[i].slice(1);
-    }
-    return newString.join(' ');
+  ngAfterViewInit(): void {}
+
+  ngAfterContentInit(): void {
+    //Called after ngOnInit when the component's or directive's content has been initialized.
+    console.log(this.image);
+    console.log(this.imageComponent);
+    console.log(this.imageRef);
+    console.log(this.images);
+    //Add 'implements AfterContentInit' to the class.
   }
 
   isImageVisible() {
@@ -60,7 +92,6 @@ export class CourseCardComponent implements OnInit {
 
   cardStyles() {
     return {
-      'box-shadow': this.courseIndex === 1 ? '3px 2px 3px 2px #888888' : '',
       'background-image': 'url(' + this.course.iconUrl + ')',
     };
   }
