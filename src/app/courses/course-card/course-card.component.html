@@ -1,57 +1,25 @@
-<ng-container *ngIf="course" #container>
-  <div class="course-card" [ngClass]="cardClasses()">
-    <div class="course-title">
-      {{ course.description }}
-    </div>
-    <!-- Content Projection é uma possibilidade quando
-    queremos, por exemplo, exibir um conteúdo apenas
-  dentro de um item de uma lista -->
-
-    <ng-content select=".course-image" *ngIf="course.iconUrl; else noImage"></ng-content>
-
-    <ng-template #noImage>
-      <ng-container
-        *ngTemplateOutlet="
-          noImageTemplate;
-          context: { description: course.description, iconUrl: course.iconUrl }
-        "
-      ></ng-container>
-    </ng-template>
-
-    <ng-content select=".course-description"></ng-content>
-    <ng-content></ng-content>
-    <!-- Projeto tudo que não está com as classes course-image ou course-description -->
-    <!-- Podemos no content fazer uma query pela tag ou também
-    pela classe -->
-    <!--  -->
-    <!-- <img
-      #courseImage
-      *ngIf="isImageVisible(); else noImage"
-      width="300"
-      alt="Angular Logo"
-      [src]="course.iconUrl"
-    />
-
-    <ng-template #noImage>
-      <img width="300" alt="Empty Image" src="assets/empty-image.png" />
-    </ng-template> -->
-
-    <ng-container [ngSwitch]="course.category">
-      <div class="course-category">
-        <ng-container *ngSwitchCase="course.category">
-          <div class="category">
-            {{ course.category | titlecase }}
-          </div>
-        </ng-container>
-        <!--
-        <div class="category" *ngSwitchCase="'BEGINNER'">Beginner</div>
-        <div class="category" *ngSwitchCase="'ADVANCED'">Advanced</div>
-        <div class="category" *ngSwitchCase="'INTERMEDIATE'">Intermediate</div>
-       -->
-        <div class="category" *ngSwitchDefault>All Levels</div>
-      </div>
-    </ng-container>
-
-    <button [ngStyle]="cardStyles()" (click)="onCourseViewed()">Save Course</button>
+<div class="course-card" *ngIf="course" #container>
+  <div class="course-title">
+    {{ cardIndex || '' + ' ' + course.description }}
   </div>
-</ng-container>
+
+  <ng-content select="course-image" *ngIf="course.iconUrl"></ng-content>
+
+  <div class="course-description">
+    Edit Title:
+    <input
+      #courseTitle
+      [value]="course.description"
+      (keyup)="onTitleChanged(courseTitle.value)"
+    />
+  </div>
+
+  <div class="course-category">
+    <div class="category" i18n>
+      { course.category, select, BEGINNER {Beginner} INTERMEDIATE {Intermediate} ADVANCED
+      {Advanced} }
+    </div>
+  </div>
+
+  <button (click)="onSaveClicked(courseTitle.value)">Save Course</button>
+</div>

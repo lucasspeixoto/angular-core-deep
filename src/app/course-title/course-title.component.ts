@@ -3,13 +3,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'course-image',
-  templateUrl: './course-image.component.html',
-  styleUrls: ['./course-image.component.css'],
+  selector: 'course-title',
+  templateUrl: './course-title.component.html',
+  styleUrls: ['./course-title.component.css'],
 })
-export class CourseImageComponent implements OnInit {
+export class CourseTitleComponent implements OnInit {
   @Input()
-  imageUrl!: string;
+  title!: string;
 
   constructor() {}
 

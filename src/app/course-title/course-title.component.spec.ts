@@ -1,20 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { CourseCardComponent } from './course-card.component';
+import { CourseTitleComponent } from './course-title.component';
 
-describe('CourseCardComponent', () => {
-  let component: CourseCardComponent;
-  let fixture: ComponentFixture<CourseCardComponent>;
+describe('CourseTitleComponent', () => {
+  let component: CourseTitleComponent;
+  let fixture: ComponentFixture<CourseTitleComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CourseCardComponent ]
-    })
-    .compileComponents();
+      declarations: [CourseTitleComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CourseCardComponent);
+    fixture = TestBed.createComponent(CourseTitleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
