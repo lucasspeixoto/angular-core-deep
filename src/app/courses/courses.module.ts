@@ -2,10 +2,9 @@ import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { CourseCardComponent } from './course-card/course-card.component';
+import { CourseDescriptionComponent } from './course-description/course-description.component';
 import { CourseImageComponent } from './course-image/course-image.component';
 import { CoursesService } from './courses.service';
-import { HighlightedDirective } from './directives/highlighted.directive';
-import { NgxUnlessDirective } from './directives/ngx-unless.directive';
 import { FilterByCategoryPipe } from './filter-by-category.pipe';
 
 @NgModule({
@@ -13,11 +12,15 @@ import { FilterByCategoryPipe } from './filter-by-category.pipe';
   declarations: [
     CourseCardComponent,
     CourseImageComponent,
-    HighlightedDirective,
-    NgxUnlessDirective,
+    FilterByCategoryPipe,
+    CourseDescriptionComponent,
+  ],
+  exports: [
+    CourseCardComponent,
+    CourseImageComponent,
+    CourseDescriptionComponent,
     FilterByCategoryPipe,
   ],
-  exports: [CourseCardComponent, CourseImageComponent, FilterByCategoryPipe],
   providers: [CoursesService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

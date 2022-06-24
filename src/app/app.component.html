@@ -5,22 +5,22 @@
   />
 </div>
 
-<div>
-  <div class="demo">
-    <button (click)="onEditCourse()" i18n>Edit Course</button>
-  </div>
+<div class="course-card">Teste</div>
 
-  <div class="courses">
+<ng-template [ngIf]="courses[0]" let-course>
+  <div class="courses salmon-theme">
     <course-card
-      *ngFor="let course of courses"
-      (courseEmitter)="save($event)"
-      type="beginner"
+      highlighted
+      #highlighter="hl"
+      (toggleHighlight)="onToggle($event)"
+      (courseSelected)="onCourseSelected($event)"
       [course]="course"
     >
-    <ng-container *ngIf="course.iconUrl">
-
-      <course-image [imageUrl]="course.iconUrl"></course-image>
-    </ng-container>
+      <course-image *ngxUnless="!course.iconUrl!" [imageUrl]="course.iconUrl!">
+      </course-image>
+      <div class="course-description" (dblclick)="highlighter.toggle()">
+        {{ course.longDescription }}
+      </div>
     </course-card>
   </div>
-</div>
+</ng-template>

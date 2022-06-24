@@ -1,26 +1,12 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-/* eslint-disable @angular-eslint/no-empty-lifecycle-method */
-/* eslint-disable no-unused-vars */
-import {
-  AfterContentChecked,
-  AfterContentInit,
-  AfterViewChecked,
-  AfterViewInit,
-  Attribute,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  DoCheck,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { Course } from '../../model/course';
-import { CoursesService } from '../courses.service';
+
+/**
+ * ViewEncapsulation.Emulated: Default, o css do componente não interfere no restante do AppComponent
+ * ViewEncapsulation.None: Agora o css dentro do componente pode ser utilizado fora dele (Não faz mais sentido utilizar host e host-context)
+ * ViewEncapsulation.ShadowDom: Cria um stylesheet em um HTML apartado
+ */
 
 @Component({
   selector: 'course-card',
@@ -37,12 +23,13 @@ export class CourseCardComponent implements OnInit {
   @Output()
   courseEmitter = new EventEmitter<Course>();
 
-  constructor(
-    private coursesService: CoursesService,
-    @Attribute('type') private type: string,
-  ) {}
+  constructor() {
+    console.log('constructor');
+  } //@Attribute('type') private type: string, //private coursesService: CoursesService,
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log('Init');
+  }
 
   onTitleChanged(newTitle: string) {
     this.course.description = newTitle;

@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 
 @Directive({
@@ -8,10 +9,11 @@ export class NgxUnlessDirective {
   visible = false;
 
   constructor(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     private templateRef: TemplateRef<any>,
     private viewContainer: ViewContainerRef,
-  ) {}
+  ) {
+    console.log(this.templateRef);
+  }
 
   @Input()
   set ngxUnless(condition: boolean) {
