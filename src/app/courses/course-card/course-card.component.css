@@ -1,8 +1,8 @@
-
-:host { /* host é uma palavra chave introduzida pelo Angular view encapsulation
+:host {
+  /* host é uma palavra chave introduzida pelo Angular view encapsulation
   que vai possibilitar selecionar o host elemento de um componente*/
- display: block;
- color: rgb(182, 47, 47)
+  display: block;
+  color: rgb(182, 47, 47);
 }
 
 :host.is-first {
@@ -30,7 +30,6 @@
 :host-context(.salmon-theme) .course-card {
   background: lightsalmon;
 }
-
 
 .course-card {
   margin-bottom: 40px;

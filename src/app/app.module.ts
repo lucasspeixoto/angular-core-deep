@@ -10,7 +10,12 @@ import { HighlightedDirective } from './directives/highlighted.directive';
 import { NgxUnlessDirective } from './directives/ngx-unless.directive';
 
 @NgModule({
-  declarations: [AppComponent, CourseTitleComponent, HighlightedDirective, NgxUnlessDirective],
+  declarations: [
+    AppComponent,
+    CourseTitleComponent,
+    HighlightedDirective,
+    NgxUnlessDirective,
+  ],
   imports: [BrowserModule, BrowserAnimationsModule, HttpClientModule, CoursesModule],
   providers: [],
   bootstrap: [AppComponent],
