@@ -2,11 +2,14 @@
 import {
   Directive,
   EventEmitter,
+  Host,
   HostBinding,
-  //HostListener,
+  HostListener,
   Input,
   Output,
 } from '@angular/core';
+
+import { CoursesService } from '../courses/courses.service';
 
 @Directive({
   selector: '[highlighted]',
@@ -19,7 +22,9 @@ export class HighlightedDirective {
   @Output()
   toggleHighlight = new EventEmitter();
 
-  constructor() {
+  // eslint-disable-next-line no-unused-vars
+  constructor(@Host() private coursesService: CoursesService) {
+    console.log(`coursesService highlighted ${coursesService.id}`);
     //console.log('Highlighted directive created');
   }
 
@@ -28,7 +33,7 @@ export class HighlightedDirective {
     return this.highlighted;
   }
 
-  /* @HostListener('mouseover', ['$event'])
+  @HostListener('mouseover', ['$event'])
   mouseOver($event: Event) {
     console.log($event);
     this.highlighted = true;
@@ -38,12 +43,12 @@ export class HighlightedDirective {
   mouseLeave() {
     this.highlighted = false;
     this.toggleHighlight.emit(this.highlighted);
-  } */
+  }
 
-  /* @HostBinding('attr.disabled')
+  @HostBinding('attr.disabled')
   get disabled() {
     return 'true';
-  } */
+  }
 
   /* @HostBinding('className')
   get cssClasses() {
