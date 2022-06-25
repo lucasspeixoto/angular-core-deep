@@ -99,5 +99,6 @@ export const COURSES: Course[] = [
 ];
 
 export function findCourseById(courseId: number) {
-  return COURSES.find((course) => course.id === courseId);
+  return COURSES.filter((course) => course.id === courseId);
+  // return COURSES.find(course => course.id === courseId);
 }

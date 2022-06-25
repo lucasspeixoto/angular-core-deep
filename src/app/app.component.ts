@@ -1,76 +1,51 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-unused-vars */
-import {
-  AfterViewInit,
-  Component,
-  EventEmitter,
-  Inject,
-  Injector,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import { createCustomElement } from '@angular/elements';
+import { HttpClient } from '@angular/common/http';
+import { Inject, InjectionToken } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import { COURSES } from '../db-data';
-import { AppConfig, CONFIG_TOKEN } from './config';
-import { CourseTitleComponent } from './course-title/course-title.component';
 import { CoursesService } from './courses/courses.service';
-import { HighlightedDirective } from './directives/highlighted.directive';
 import { Course } from './model/course';
+
+// Manual Provide for a service
+export function courserServiceProvider(http: HttpClient): CoursesService {
+  return new CoursesService(http);
+}
+
+export const COURSES_SERVICE = new InjectionToken<CoursesService>('COURSES_SERVICES');
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
+  /*  Injeção manual
+  providers: [
+    { provide: COURSES_SERVICE, useFactory: courserServiceProvider, deps: [HttpClient] },
+  ], */
+  providers: [CoursesService],
 })
-export class AppComponent implements OnInit, AfterViewInit {
-  courses: Course[] = COURSES;
+export class AppComponent implements OnInit {
+  courses: Course[] = [];
+  courses$: Observable<Course[]> = new Observable();
 
-  coursesTotal = this.courses.length;
-
-  /**
-   * { read: HighlightedDirective } Para situação
-   * onde existem varios usos da diretiva no template
-   */
-  @ViewChild(HighlightedDirective, { read: HighlightedDirective })
-  highlighted!: HighlightedDirective;
-
-  constructor(
-    private coursesService: CoursesService,
-    @Inject(CONFIG_TOKEN) private config: AppConfig,
-    private injector: Injector,
-  ) {}
-
-  ngOnInit() {
-    const htmlElement = createCustomElement(CourseTitleComponent, {
-      injector: this.injector,
-    });
-
-    customElements.define('course-title', htmlElement);
+  /** Criação de um provider manualmente para o coursesServices
+  constructor(@Inject(COURSES_SERVICE) private coursesService: CoursesService) {
+  }
+ */
+  constructor(private coursesService: CoursesService) {
+    /** Criação de um provider manualmente para o coursesServices     */
   }
 
-  ngAfterViewInit(): void {
-    console.log(this.highlighted);
+  ngOnInit() {
+    this.courses$ = this.coursesService.loadCourses();
   }
 
   onEditCourse() {
     this.courses[1].category = 'ADVANCED';
   }
 
-  onToggle(isHighlighted: boolean) {
-    console.log(isHighlighted);
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  save(course: any) {
-    this.coursesService.saveCourse(course).subscribe(() => console.log('Course Saved!'));
-  }
-
-  toggleHighlight(event: EventEmitter<boolean | string>) {
-    console.log(`Event: ${event}`);
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onCourseSelected(course: any) {
-    console.log(`COurse selected: ${course}`);
+  save(course: Course | any) {
+    this.coursesService.saveCourse(course).subscribe((value: any) => console.log(value));
   }
 }

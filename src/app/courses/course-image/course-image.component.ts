@@ -8,7 +8,8 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./course-image.component.css'],
 })
 export class CourseImageComponent implements OnInit {
-  @Input()
+  // eslint-disable-next-line @angular-eslint/no-input-rename
+  @Input('src')
   imageUrl!: string;
 
   constructor() {}

@@ -1,17 +1,17 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @angular-eslint/no-empty-lifecycle-method */
+/* eslint-disable no-unused-vars */
+/* eslint-disable @angular-eslint/no-output-rename */
+import { Attribute, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { Course } from '../../model/course';
-
-/**
- * ViewEncapsulation.Emulated: Default, o css do componente não interfere no restante do AppComponent
- * ViewEncapsulation.None: Agora o css dentro do componente pode ser utilizado fora dele (Não faz mais sentido utilizar host e host-context)
- * ViewEncapsulation.ShadowDom: Cria um stylesheet em um HTML apartado
- */
+import { CoursesService } from '../courses.service';
 
 @Component({
   selector: 'course-card',
   templateUrl: './course-card.component.html',
   styleUrls: ['./course-card.component.css'],
+  providers: [CoursesService],
 })
 export class CourseCardComponent implements OnInit {
   @Input()
@@ -20,16 +20,15 @@ export class CourseCardComponent implements OnInit {
   @Input()
   cardIndex!: number;
 
-  @Output()
+  @Output('courseChanged')
   courseEmitter = new EventEmitter<Course>();
 
-  constructor() {
-    console.log('constructor');
-  } //@Attribute('type') private type: string, //private coursesService: CoursesService,
+  constructor(
+    private coursesService: CoursesService,
+    @Attribute('type') private type: string,
+  ) {}
 
-  ngOnInit() {
-    console.log('Init');
-  }
+  ngOnInit() {}
 
   onTitleChanged(newTitle: string) {
     this.course.description = newTitle;
