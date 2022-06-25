@@ -1,16 +1,24 @@
+/* eslint-disable @angular-eslint/no-conflicting-lifecycle */
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @angular-eslint/no-output-rename */
 import {
+  AfterContentChecked,
+  AfterContentInit,
+  AfterViewChecked,
+  AfterViewInit,
   Attribute,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
+  DoCheck,
+  ElementRef,
   EventEmitter,
   Input,
+  OnChanges,
+  OnDestroy,
   OnInit,
   Output,
+  SimpleChanges,
 } from '@angular/core';
 
 import { Course } from '../../model/course';
@@ -20,9 +28,18 @@ import { CoursesService } from '../courses.service';
   selector: 'course-card',
   templateUrl: './course-card.component.html',
   styleUrls: ['./course-card.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CourseCardComponent implements OnInit {
+export class CourseCardComponent
+  implements
+    OnInit,
+    OnDestroy,
+    OnChanges,
+    AfterContentChecked,
+    AfterViewChecked,
+    AfterContentInit,
+    AfterViewInit,
+    DoCheck
+{
   @Input()
   course!: Course;
 
@@ -36,25 +53,82 @@ export class CourseCardComponent implements OnInit {
   courseEmitter = new EventEmitter<Course>();
 
   constructor(
-    //* @Optional() private coursesService: CoursesService ==> Mesmo sem um provider, vai permitir a injeção
-    //* @Self() private coursesService: CoursesService ==> Com o decorator Self o provider do service, se não existe no componente, não mais vem do componente pai
-    //* @SkipSelf() private coursesService: CoursesService ==> Mesmo com um provider local, o decorator SkipSelf vai utilizar a instância do service do componente pai (app.component)
     private coursesService: CoursesService,
     @Attribute('type') private type: string,
-    private cd: ChangeDetectorRef,
-  ) /**
-   * O Decorartor @Attribute permite que uma variávei seja passada
-   * para um componente filho como atributo ao inves de um simples
-   * input. Esta estratégia vai gerar um ganho de performance
-   * em situações em que não é necessário que o Angular fique verificando
-   * se houve alterações no valor de type
-   *
-   *
-   *
-   */ {}
+    private elRef: ElementRef,
+  ) {
+    console.log('constructor');
+  }
 
   ngOnInit() {
-    //console.log(`coursesService course card ${this.coursesService.id}`);
+    /**
+     * Toda lógica que depende de variáveis de input
+     * devem ser utilizadas no ngOnInit ao inves
+     * do constructor
+     */
+    console.log(`ngOnInit`);
+  }
+
+  ngDoCheck() {
+    console.log('ngDoCheck');
+  }
+
+  ngAfterContentInit() {
+    /**
+     * Local Ideal para lógica envolveldo variáveis
+     * obtidas via @ViewContentChild ou @ViewContentChildren
+     */
+    console.log(`ngAfterContentInit`);
+  }
+
+  ngAfterViewInit() {
+    /**
+     * Local Ideal para lógica envolveldo variáveis
+     * obtidas via @ViewViewChild ou @ViewViewChildren
+     */
+    console.log(`ngAfterViewInit`);
+  }
+
+  ngOnDestroy() {
+    console.log('ngOnDestroy');
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    // Chamado sem que o CD passa pelo componente
+    console.log('ngOnChanges', changes);
+  }
+
+  ngAfterContentChecked() {
+    /*******************************
+     * Local ideal para modificar alguns dados
+     * segundos após o ciclo de change detection
+     */
+    console.log('ngAfterContentChecked');
+    this.course.description = 'ngAfterContentChecked';
+    this.course.category = 'ADVANCED';
+  }
+
+  ngAfterViewChecked() {
+    /** Nada que esteja refletindo na view deve ser
+     * modificada dentro deste lifecyclo, pois a view
+     * ja foi 'montada'. É o local ideal para operações
+     * envolvendo a DOM (Scrools, focus, etc...)
+     */
+    console.log('ngAfterViewChecked');
+    //this.course.description = 'ngAfterViewChecked'; //! ERRO
+
+    /**
+     * Uma utilidade do ngAfterViewChecked é em uma
+     * situação onde um curso é adicionado e queremos
+     * gerar um scrool para o topo de página. Se fizermos
+     * isto antes, os elementos ainda não foram exibidos, logo
+     * o scroll não terá efeito.
+     */
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
   }
 
   onTitleChanged(newTitle: string) {
