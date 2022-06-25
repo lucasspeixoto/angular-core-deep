@@ -8,17 +8,7 @@ import { Course } from '../model/course';
 let counter = 0;
 
 @Injectable({
-  providedIn: 'root', //providedIn = 'Onde o service deve ser instanciado'
-  /* useFactory: (http: HttpClient) => new CoursesService(http),
-  deps: [HttpClient], */
-  /**
-   * Esta estratégia com providedIn root, useFactory e deps,
-   * só vai injetar no bundle o nosso service se ele for injetado no
-   * componente, caso contrário não, mesmo não necessitando em determinado
-   * componente sem lazy loading, ele é injetado no bundle, aumentando seu
-   * tamanho sem necessidade
-   * Ao invés de useFactory + deps, podemos substituir por useClass: CoursesService
-   */
+  providedIn: 'root',
 })
 export class CoursesService {
   id: number;

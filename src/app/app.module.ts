@@ -6,8 +6,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { CourseCardComponent } from './courses/course-card/course-card.component';
 import { CourseImageComponent } from './courses/course-image/course-image.component';
+import { CoursesService } from './courses/courses.service';
 import { HighlightedDirective } from './directives/highlighted.directive';
-//import { CoursesService } from './courses/courses.service';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,7 @@ import { HighlightedDirective } from './directives/highlighted.directive';
     HighlightedDirective,
   ],
   imports: [BrowserModule, BrowserAnimationsModule, HttpClientModule],
-  //providers: [CoursesService],
+  providers: [CoursesService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

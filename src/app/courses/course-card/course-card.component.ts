@@ -2,7 +2,16 @@
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @angular-eslint/no-output-rename */
-import { Attribute, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Attribute,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 
 import { Course } from '../../model/course';
 import { CoursesService } from '../courses.service';
@@ -11,22 +20,7 @@ import { CoursesService } from '../courses.service';
   selector: 'course-card',
   templateUrl: './course-card.component.html',
   styleUrls: ['./course-card.component.css'],
-  providers: [CoursesService],
-
-  /**
-   * Se existe um provider de um serviço em um componente
-   * filho ele vai utilizar uma instância única criada para
-   * ele e esta instância não será utilizada por nenhum outro
-   * componente na aplicação. Se o componente não tiver o provider
-   * ele vai buscar no componente pai (app.componente)
-   *
-   * Multiplas instâncias locais é um estratégia recomendada
-   * quando temos estado compartilhado no nosso service e
-   * não queremos compartilhar este estado em todo o app, queremos utiliza-lo
-   * apenas em um componente específico. Caso não exista nenhum estado,
-   * não é recomendado providers locais nos
-   * componentes
-   */
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CourseCardComponent implements OnInit {
   @Input()
@@ -34,6 +28,9 @@ export class CourseCardComponent implements OnInit {
 
   @Input()
   cardIndex!: number;
+
+  /* @Input()
+  type!: string; */
 
   @Output('courseChanged')
   courseEmitter = new EventEmitter<Course>();
@@ -44,13 +41,24 @@ export class CourseCardComponent implements OnInit {
     //* @SkipSelf() private coursesService: CoursesService ==> Mesmo com um provider local, o decorator SkipSelf vai utilizar a instância do service do componente pai (app.component)
     private coursesService: CoursesService,
     @Attribute('type') private type: string,
-  ) {}
+    private cd: ChangeDetectorRef,
+  ) /**
+   * O Decorartor @Attribute permite que uma variávei seja passada
+   * para um componente filho como atributo ao inves de um simples
+   * input. Esta estratégia vai gerar um ganho de performance
+   * em situações em que não é necessário que o Angular fique verificando
+   * se houve alterações no valor de type
+   *
+   *
+   *
+   */ {}
 
   ngOnInit() {
-    console.log(`coursesService course card ${this.coursesService.id}`);
+    //console.log(`coursesService course card ${this.coursesService.id}`);
   }
 
   onTitleChanged(newTitle: string) {
+    console.log('Title changed');
     this.course.description = newTitle;
   }
 
