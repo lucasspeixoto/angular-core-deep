@@ -20,9 +20,9 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { CoursesService } from 'src/app/courses/services/courses.service';
 
 import { Course } from '../../model/course';
-import { CoursesService } from '../courses.service';
 
 @Component({
   selector: 'course-card',
@@ -104,8 +104,8 @@ export class CourseCardComponent
      * segundos após o ciclo de change detection
      */
     console.log('ngAfterContentChecked');
-    this.course.description = 'ngAfterContentChecked';
-    this.course.category = 'ADVANCED';
+    //this.course.description = 'ngAfterContentChecked';
+    //this.course.category = 'ADVANCED';
   }
 
   ngAfterViewChecked() {

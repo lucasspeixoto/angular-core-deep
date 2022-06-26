@@ -6,8 +6,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { COURSES } from 'src/db-data';
 
-import { CoursesService } from './courses/courses.service';
-import { Course } from './model/course';
+import { Course } from './courses/model/course';
+import { CoursesService } from './courses/services/courses.service';
 
 @Component({
   selector: 'app-root',

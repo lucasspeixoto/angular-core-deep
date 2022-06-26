@@ -4,20 +4,16 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
-import { CourseCardComponent } from './courses/course-card/course-card.component';
-import { CourseImageComponent } from './courses/course-image/course-image.component';
-import { CoursesService } from './courses/courses.service';
-import { HighlightedDirective } from './directives/highlighted.directive';
+import { CoursesModule } from './courses/courses.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    CourseCardComponent,
-    CourseImageComponent,
-    HighlightedDirective,
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule, //! Inclui as principais diretivas que usamos como ngFor e ngIf
+    BrowserAnimationsModule,
+    HttpClientModule,
+    CoursesModule,
   ],
-  imports: [BrowserModule, BrowserAnimationsModule, HttpClientModule],
-  providers: [CoursesService],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent], //! bootstrap é a propriedade utilizada para identificar o componente root do app
 })
 export class AppModule {}

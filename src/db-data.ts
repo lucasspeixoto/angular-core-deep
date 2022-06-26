@@ -1,4 +1,4 @@
-import { Course } from './app/model/course';
+import { Course } from './app/courses/model/course';
 
 export const COURSES: Course[] = [
   {

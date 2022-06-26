@@ -2,7 +2,6 @@
   /* host é uma palavra chave introduzida pelo Angular view encapsulation
   que vai possibilitar selecionar o host elemento de um componente*/
   display: block;
-  color: rgb(182, 47, 47);
 }
 
 :host.is-first {
@@ -46,7 +45,7 @@
 }
 
 /* ::ng-deep vai permitir que esse estilo
-seja interpretado por conteúdos projetodos, */
+seja interpretado por conteúdos projetados, */
 .course-card ::ng-deep .course-description {
   max-width: 360px;
   margin: 0 auto;
