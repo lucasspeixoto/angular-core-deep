@@ -3,11 +3,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Pipe, PipeTransform } from '@angular/core';
 
+import { Course } from '../model/course';
+
 @Pipe({
-  name: 'filter-by-category',
+  name: 'filterByCategory',
+  pure: false,
+  standalone: false, //! Pipes impuros vão ser ser chamados em todas as vezes onde o CD executar (Cuidados com problemas de performance)
 })
 export class FilterByCategoryPipe implements PipeTransform {
-  transform(value: any, args?: any): any {
-    return null;
+  transform(courses: Course[], category?: string): Course[] {
+    if (!category || category === 'ALL') return courses;
+
+    return courses.filter((course: Course) => course.category === category);
   }
 }

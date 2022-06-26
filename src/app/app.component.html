@@ -8,12 +8,25 @@
 <div>
   <div class="demo">
     <button (click)="onEditCourse()" i18n>Edit Course</button>
+    <!-- <input type="text" [value]="category" (input)="changeCategoryFilter($event)"/> -->
+    <div style="display: flex; flex-direction: column; gap: 3px; margin: 10; padding: 0">
+      <label style="font-size: 20px; color: blue">Course Category</label>
+      <select
+        [(ngModel)]="category"
+        class="form-control"
+        (ngModelChange)="changeCategoryFilter($event)"
+        ng-model="nrSelect"
+      >
+        <option *ngFor="let category of categories" [ngValue]="category">
+          {{ category.name }}
+        </option>
+      </select>
+    </div>
   </div>
 
-  <div class="courses" *ngIf="courses[0] as course">
+  <div class="courses">
     <course-card
-      highlighted
-      *ngFor="let course of courses"
+      *ngFor="let course of courses | filterByCategory: category?.name"
       (courseChanged)="save($event)"
       type="beginner"
       [course]="course"

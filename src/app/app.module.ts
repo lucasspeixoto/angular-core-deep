@@ -1,5 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -13,6 +14,7 @@ import { CoursesModule } from './courses/courses.module';
     BrowserAnimationsModule,
     HttpClientModule,
     CoursesModule,
+    FormsModule,
   ],
   bootstrap: [AppComponent], //! bootstrap é a propriedade utilizada para identificar o componente root do app
 })
