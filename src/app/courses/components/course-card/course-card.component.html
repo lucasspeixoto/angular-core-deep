@@ -5,7 +5,7 @@
 
   <ng-content select="course-image" *ngIf="course.iconUrl"></ng-content>
 
-  <div class="course-description">
+  <div class="course-description" i18n>
     Edit Title:
     <input
       #courseTitle
@@ -23,5 +23,5 @@
     </div>
   </div>
 
-  <button (click)="onSaveClicked(courseTitle.value)">Save Course</button>
+  <button (click)="onSaveClicked(courseTitle.value)" i18n>Save Course</button>
 </div>

@@ -6,8 +6,13 @@
 </div>
 
 <div>
+  <div i18n>
+    {coursesTotal, plural, =0 {No courses available.} =1 {One courses is available.} other
+    {A total of {{ coursesTotal }} are available}}
+  </div>
   <div class="demo">
     <button (click)="onEditCourse()" i18n>Edit Course</button>
+
     <!-- <input type="text" [value]="category" (input)="changeCategoryFilter($event)"/> -->
     <div style="display: flex; flex-direction: column; gap: 3px; margin: 10; padding: 0">
       <label style="font-size: 20px; color: blue">Course Category</label>

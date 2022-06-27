@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="5048677437444385397" datatype="html">
+        <source>Edit Course</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/app.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5716568950348100932" datatype="html">
+        <source> Edit Title: <x id="TAG_INPUT" ctype="x-input" equiv-text="&lt;input
+      #courseTitle
+      [value]=&quot;course.description&quot;
+      (keyup)=&quot;onTitleChanged(courseTitle.value)&quot;
+      name=&quot;courseTitle&quot;
+      ngModel
+    /&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/courses/components/course-card/course-card.component.html</context>
+          <context context-type="linenumber">8,16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8856905278208146821" datatype="html">
+        <source> <x id="ICU" equiv-text="{ course.category, select, BEGINNER {Beginner} INTERMEDIATE {Intermediate} ADVANCED
+      {Advanced} }" xid="4587612384756081379"/> </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/courses/components/course-card/course-card.component.html</context>
+          <context context-type="linenumber">20,23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4587612384756081379" datatype="html">
+        <source>{VAR_SELECT, select, BEGINNER {Beginner} INTERMEDIATE {Intermediate} ADVANCED {Advanced}}</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/courses/components/course-card/course-card.component.html</context>
+          <context context-type="linenumber">21,22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3261766619736894031" datatype="html">
+        <source>Save Course</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/courses/components/course-card/course-card.component.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

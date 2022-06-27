@@ -31,11 +31,14 @@ export class AppComponent implements OnInit {
     { id: 4, name: 'ADVANCED' },
   ];
 
+  coursesTotal!: number;
+
   constructor(private coursesService: CoursesService) {}
 
   ngOnInit() {
     this.coursesService.loadCourses().subscribe((courses: Course[]) => {
       this.courses = courses;
+      this.coursesTotal = courses.length;
     });
   }
 
